@@ -1,21 +1,11 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React from "react";
+import { View, Text } from "react-native";
+import MainComponent from "./components/MainComponent";
 
-export default function App() {
+function App() {
   return (
-    <View style={styles.container}>
-      <Text>Welcome To BagLocater!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+    <MainComponent />
+  )
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;
