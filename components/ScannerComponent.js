@@ -26,7 +26,8 @@ function Scanner() {
                 data: data
             })
         })
-            .then((res) => alert(res))
+            .then((res) => res.text())
+            .then(text => alert(text))
             // .then(result => {
             //     alert(result[0].Name)
             //     //[object object]
