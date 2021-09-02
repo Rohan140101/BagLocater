@@ -4,11 +4,13 @@ import HomeComponent from "./HomeComponent";
 import TermsAndConditionsComponent from "./TermsAndConditionsComponent";
 import AboutComponent from "./AboutComponent";
 import ContactComponent from "./ContactComponent";
+import ScannerComponent from "./ScannerComponent";
 import { View, Text, ScrollView, Image, StyleSheet, SafeAreaView } from 'react-native';
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createDrawerNavigator, DrawerItemList } from "@react-navigation/drawer";
 import { Icon } from "react-native-elements";
+import Scanner from './ScannerComponent';
 
 const Stack = createStackNavigator();
 
@@ -79,6 +81,19 @@ function ContactStack({ navigation }) {
     )
 }
 
+function BarCodeStack({ navigation }) {
+    return (
+        <Stack.Navigator>
+            <Stack.Screen name="BagLocator" component={ScannerComponent} options={{
+                headerLeft: () =>
+                    <View style={{ marginLeft: 20 }}>
+                        <Icon name="bars" type="font-awesome" color="#517fa4" onPress={() => navigation.openDrawer()} />
+                    </View>
+            }} />
+        </Stack.Navigator>
+    )
+}
+
 const Drawer = createDrawerNavigator();
 
 const CustomDrawerContentComponent = (props) => (
@@ -129,6 +144,12 @@ function MainComponent() {
                     drawerIcon: () =>
                         <View>
                             <Icon name="address-card" type="font-awesome" />
+                        </View>
+                }} />
+                <Drawer.Screen name="Scanner" component={BarCodeStack} options={{
+                    drawerIcon: () =>
+                        <View>
+                            <Icon name="bars" type="font-awesome" />
                         </View>
                 }} />
             </Drawer.Navigator>
