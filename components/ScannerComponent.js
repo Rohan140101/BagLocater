@@ -16,7 +16,7 @@ function Scanner() {
     const handleBarCodeScanner = ({ type, data }) => {
         setScanned(true);
         // alert(`Barcode with type ${type} and data ${data} has been scanned!`);
-        fetch('http://192.168.0.102:8000/decode', {
+        fetch('http://192.168.0.103:8000/decode', {
             method: 'POST',
             headers: {
                 Accept: 'application/json',
