@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, Button } from "react-native";
 import { BarCodeScanner } from "expo-barcode-scanner";
 
-function Scanner() {
+function Scanner({navigation}) {
     const [hasPermission, setPermission] = useState(null);
     const [scanned, setScanned] = useState(false);
 
@@ -27,7 +27,7 @@ function Scanner() {
             })
         })
             .then((res) => res.text())
-            .then(text => alert(text))
+            .then(text => navigation.navigate('Screen Name'))
             // .then(result => {
             //     alert(result[0].Name)
             //     //[object object]
