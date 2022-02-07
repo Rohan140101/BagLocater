@@ -1,14 +1,10 @@
 import React, { Component } from "react";
 import { View, Text, StyleSheet, ImageBackground } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
-import FlightDetailComponent from "./FlightDetailComponent";
-import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
-
-const Stack = createStackNavigator();
+import { SafeAreaView } from "react-native-safe-area-context";
 
 
-function HomeScreen({ navigation }) {
+function HomeComponent({ navigation }) {
     return (
         <ImageBackground style={{ width: "100%", height: "100%", flex: 1 }} resizeMode="cover" source={require("../assets/airport.jpg")}>
             <View style={styles.MainView}>
@@ -27,18 +23,6 @@ function HomeScreen({ navigation }) {
                 </View>
             </View>
         </ImageBackground>
-
-    )
-}
-
-function HomeComponent() {
-    return (
-        <NavigationContainer independent={true}>
-            <Stack.Navigator initialRouteName="Home">
-                <Stack.Screen name="Home" component={HomeScreen} />
-                <Stack.Screen name="FlightDetail" component={FlightDetailComponent} />
-            </Stack.Navigator>
-        </NavigationContainer>
     )
 }
 
@@ -54,7 +38,9 @@ const styles = StyleSheet.create({
     MainView: {
         backgroundColor: "#000000a0",
         height: "100%",
-        paddingTop: 20
+        paddingTop: 20,
+        display: 'flex',
+        alignItems: 'center'
     },
     HomeView1: {
         marginTop: 100,

@@ -6,6 +6,15 @@ import Feather from 'react-native-vector-icons/Feather';
 import { Button } from 'react-native';
 
 function LoginComponent() {
+
+    const [username, setUsername] = React.useState('');
+    const [password, setPassword] = React.useState('');
+
+    function handleLogin() {
+        console.log(username + " " + password);
+        Alert.alert('Congratulations you are signed in');
+    }
+
     return (
         <View style={styles.container}>
             <View style={styles.header}>
@@ -15,15 +24,15 @@ function LoginComponent() {
                 <Text style={styles.labelText}>Username:</Text>
                 <View style={styles.action}>
                     <FontAwesome name="user-o" color="#05375a" size={20} />
-                    <TextInput style={styles.TextInput} placeholder="Enter your username"></TextInput>
+                    <TextInput style={styles.TextInput} placeholder="Enter your username" onChangeText={(usernameText) => setUsername(usernameText)}></TextInput>
                 </View>
                 <Text style={styles.labelText}>Password:</Text>
                 <View style={styles.action}>
                     <Feather name="lock" color="#05375a" size={20} />
-                    <TextInput style={styles.TextInput} secureTextEntry={true} placeholder="Enter your password"></TextInput>
+                    <TextInput style={styles.TextInput} secureTextEntry={true} placeholder="Enter your password" onChangeText={(passText) => setPassword(passText)}></TextInput>
                 </View>
 
-                <Button title="Sign In" color="#009387" onPress={() => Alert.alert('Congratulations you are signed in')} />
+                <Button title="Sign In" color="#009387" onPress={handleLogin} />
             </View>
         </View>
     )
