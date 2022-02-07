@@ -1,10 +1,13 @@
+import { NavigationContainer } from "@react-navigation/native";
 import React from "react";
-import { View, Text } from "react-native";
-import MainComponent from "./components/MainComponent";
+import DrawerNavigator from "./components/DrawerNavigator";
 
 function App() {
   return (
-    <MainComponent />
+    <NavigationContainer>
+        <DrawerNavigator />
+    </NavigationContainer>
+
   )
 }
 
