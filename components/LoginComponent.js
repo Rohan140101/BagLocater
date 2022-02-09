@@ -4,15 +4,38 @@ import { View, Text, Alert } from "react-native";
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
 import { Button } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import {domainName} from './domain.js';
 
-function LoginComponent() {
+function LoginComponent({navigation}) {
 
     const [username, setUsername] = React.useState('');
     const [password, setPassword] = React.useState('');
 
     function handleLogin() {
-        console.log(username + " " + password);
-        Alert.alert('Congratulations you are signed in');
+        fetch(domainName + '/authenticate', {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                username: username,
+                password: password
+            })
+        })
+            .then((res) => res.json())
+            .then(res => {
+                if (res.success == 'true') {
+                    Alert.alert('Congratulations you are signed in');
+                    navigation.navigate('ScanAndRetrieve');
+                } else {
+                    Alert.alert("Invalid Username or Password");
+                }
+            })
+            .catch(error => {
+                console.log(error);
+            })
     }
 
     return (

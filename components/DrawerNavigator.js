@@ -63,12 +63,6 @@ const DrawerNavigator = () => {
                             <Icon name="address-card" type="font-awesome" />
                         </View>
                 }} />
-            <Drawer.Screen name='Scanner' component={Scanner} options={{
-                    drawerIcon: () =>
-                        <View>
-                            <Icon name="bars" type="font-awesome" />
-                        </View>
-                }} />
         </Drawer.Navigator>
     )
 }
