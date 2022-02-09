@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, Button } from "react-native";
 import { BarCodeScanner } from "expo-barcode-scanner";
+import {domainName} from './domain.js';
 
 function Scanner({navigation}) {
     const [hasPermission, setPermission] = useState(null);
@@ -16,7 +17,7 @@ function Scanner({navigation}) {
     const handleBarCodeScanner = ({ type, data }) => {
         setScanned(true);
         // alert(`Barcode with type ${type} and data ${data} has been scanned!`);
-        fetch('http://192.168.0.103:8000/decode', {
+        fetch(domainName + '/decode', {
             method: 'POST',
             headers: {
                 Accept: 'application/json',

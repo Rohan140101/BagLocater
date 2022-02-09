@@ -2,6 +2,8 @@ import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import HomeComponent from "./HomeComponent";
 import FlightDetailComponent from "./FlightDetailComponent";
+import ScanRetrieveComponent from "./ScanRetrieveComponent";
+import Scanner from "./ScannerComponent";
 
 const Stack = createStackNavigator();
 
@@ -10,6 +12,8 @@ const StackNavigator = () => {
         <Stack.Navigator>
             <Stack.Screen name="Home" component={HomeComponent} />
             <Stack.Screen name="FlightDetail" component={FlightDetailComponent} />
+            <Stack.Screen name="Scanner" component={Scanner} />
+            <Stack.Screen name="ScanAndRetrieve" component={ScanRetrieveComponent} />
         </Stack.Navigator>
     )
 }
