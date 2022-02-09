@@ -28,7 +28,7 @@ function Scanner({navigation}) {
             })
         })
             .then((res) => res.text())
-            .then(text => navigation.navigate('Screen Name'))
+            .then(text => navigation.navigate('AfterScan'))
             // .then(result => {
             //     alert(result[0].Name)
             //     //[object object]

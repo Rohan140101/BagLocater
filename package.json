@@ -20,13 +20,28 @@
     "react-native": "https://github.com/expo/react-native/archive/sdk-43.tar.gz",
     "react-native-elements": "^3.3.1",
     "react-native-gesture-handler": "~1.10.2",
+    "react-native-paper": "^4.11.2",
     "react-native-reanimated": "~2.2.0",
     "react-native-safe-area-context": "3.3.2",
     "react-native-screens": "~3.8.0",
+    "react-native-table-component": "^1.2.1",
     "react-native-web": "0.17.1"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9"
   },
-  "private": true
+  "private": true,
+  "name": "baglocater",
+  "version": "1.0.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Rohan140101/BagLocater.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Rohan140101/BagLocater/issues"
+  },
+  "homepage": "https://github.com/Rohan140101/BagLocater#readme",
+  "description": ""
 }
