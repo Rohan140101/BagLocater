@@ -16,7 +16,7 @@ function Scanner({navigation}) {
     const handleBarCodeScanner = ({ type, data }) => {
         setScanned(true);
         // alert(`Barcode with type ${type} and data ${data} has been scanned!`);
-        fetch('http://192.168.0.103:8000/decode', {
+        fetch('http://192.168.43.189:8000/decode', {
             method: 'POST',
             headers: {
                 Accept: 'application/json',
@@ -27,7 +27,7 @@ function Scanner({navigation}) {
             })
         })
             .then((res) => res.text())
-            .then(text => navigation.navigate('Screen Name'))
+            .then(text => navigation.navigate('AfterScan'))
             // .then(result => {
             //     alert(result[0].Name)
             //     //[object object]
