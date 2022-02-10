@@ -1,17 +1,28 @@
 import React, { Component } from "react";
 import { View, Text, StyleSheet, Pressable } from "react-native";
 import { Table, Row, Rows, Col, Cols } from 'react-native-table-component';
+import { useSelector, useDispatch } from "react-redux";
 
 function AfterScanComponent() {
-
+    var details = {
+      name: "",
+      email: "",
+      flightNumber: "",
+      baggageNumber: "",
+      departureAirport: "",
+      arrivalAirport: ""
+    }
+    const passengerDetail = useSelector((state) => {
+      details = {name: state.PassengerReducer.name, email: state.PassengerReducer.email, flightNumber: state.PassengerReducer.flightNumber, baggageNumber: state.PassengerReducer.baggageNumber, departureAirport: state.PassengerReducer.departureAirport, arrivalAirport: state.PassengerReducer.arrivalAirport};
+    })
 
     tableData = [
-      ['Name','Ritik'],
-      ['Email', 'ritikgupta@abc.com'],
-      ['Flight No.','FN1234'],
-      ['Baggage No.','BN6789'],
-      ['Departure Airport','BOM'],
-      ['Arrival Airport','DEL']
+      ['Name',details.name],
+      ['Email', details.email],
+      ['Flight No.',details.flightNumber],
+      ['Baggage No.',details.baggageNumber],
+      ['Departure Airport',details.departureAirport],
+      ['Arrival Airport',details.arrivalAirport]
     ]
     return (
     <View style={styles.container}>
