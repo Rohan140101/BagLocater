@@ -1,8 +1,13 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet, Pressable } from "react-native";
+import { View, Text, StyleSheet, Pressable, Linking } from "react-native";
 import { Table, Row, Rows, Col, Cols } from 'react-native-table-component';
 
 function AfterScanComponent() {
+
+  function callOwner(){
+    // Linking.openURL(`tel:${phoneNumber}`)
+    Linking.openURL(`tel:7666004769`)
+  }
 
 
     tableData = [
@@ -19,7 +24,7 @@ function AfterScanComponent() {
           <Rows data={tableData} textStyle={styles.text}/>
         </Table>
 
-        <Pressable style={[styles.btnStyle,styles.callOwnerBtn]} >
+        <Pressable style={[styles.btnStyle,styles.callOwnerBtn]} onPress={callOwner} >
           <Text style={styles.btnText}>Call Owner</Text>
         </Pressable>
 
