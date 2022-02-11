@@ -2,10 +2,24 @@ import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, Button } from "react-native";
 import { BarCodeScanner } from "expo-barcode-scanner";
 import {domainName} from './domain.js';
+import { addPassengerDetail } from "./redux/ActionCreators";
+import { connect, useSelector, useDispatch } from 'react-redux';
+
+// const mapStateToProps = (state) => {
+//     return {
+
+//     }
+// }
+
+// const mapDispatchToProps = (dispatch) => ({
+//     addPassengerDetail: (details) => dispatch(addPassengerDetail(details))
+// })
 
 function Scanner({navigation}) {
     const [hasPermission, setPermission] = useState(null);
     const [scanned, setScanned] = useState(false);
+
+    const dispatch = useDispatch();
 
     useEffect(() => {
         (async () => {
@@ -16,7 +30,6 @@ function Scanner({navigation}) {
 
     const handleBarCodeScanner = ({ type, data }) => {
         setScanned(true);
-        // alert(`Barcode with type ${type} and data ${data} has been scanned!`);
         fetch(domainName + '/decode', {
             method: 'POST',
             headers: {
@@ -27,15 +40,13 @@ function Scanner({navigation}) {
                 data: data
             })
         })
-            .then((res) => res.text())
-            .then(text => navigation.navigate('AfterScan'))
-            // .then(result => {
-            //     alert(result[0].Name)
-            //     //[object object]
-            //     // alert(`Barcode with type ${type} and data ${result.data} has been scanned!`);
-            // })
+            .then((res) => res.json())
+            .then(res => {
+                dispatch(addPassengerDetail(res))
+                navigation.navigate('AfterScan')
+            })
             .catch(error => {
-                console.log(error);
+                console.log("error");
             })
     };
 
@@ -63,4 +74,5 @@ const styles = StyleSheet.create({
     },
 });
 
+// export default connect(mapStateToProps, mapDispatchToProps)(Scanner);
 export default Scanner;
