@@ -4,18 +4,6 @@ import { Table, Row, Rows, Col, Cols } from 'react-native-table-component';
 import { useSelector, useDispatch } from "react-redux";
 
 function AfterScanComponent({navigation}) {
-
-  function callOwner(){
-    // Linking.openURL(`tel:${phoneNumber}`)
-    Linking.openURL(`tel:7666004769`)
-  }
-
-  function AddLostFound(){
-    navigation.navigate('AddLostFound')
-  }
-
-
-function AfterScanComponent() {
     var details = {
       name: "",
       email: "",
@@ -32,7 +20,12 @@ function AfterScanComponent() {
     })
 
     function callOwner(){
-      Linking.openURL(`tel:${details.phoneNumber}`)
+      // Linking.openURL(`tel:${phoneNumber}`)
+      Linking.openURL(`tel:7666004769`)
+    }
+  
+    function AddLostFound(){
+      navigation.navigate('AddLostFound')
     }
 
     tableData = [
@@ -59,7 +52,7 @@ function AfterScanComponent() {
           <Text style={styles.btnText}>Add to Lost & Found</Text>
         </Pressable>
     </View>
-     )
+     );
 }
 
 
