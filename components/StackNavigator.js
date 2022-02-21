@@ -4,6 +4,7 @@ import HomeComponent from "./HomeComponent";
 import FlightDetailComponent from "./FlightDetailComponent";
 import AfterScanComponent from "./AfterScanComponent";
 import ScanRetrieveComponent from "./ScanRetrieveComponent";
+import AddLostFoundComponent from "./AddLostFoundComponent";
 import Scanner from "./ScannerComponent";
 
 const Stack = createStackNavigator();
@@ -16,6 +17,7 @@ const StackNavigator = () => {
             <Stack.Screen name="AfterScan" component={AfterScanComponent} />
             <Stack.Screen name="Scanner" component={Scanner} />
             <Stack.Screen name="ScanAndRetrieve" component={ScanRetrieveComponent} />
+            <Stack.Screen name="AddLostFound" component={AddLostFoundComponent} />
         </Stack.Navigator>
     )
 }

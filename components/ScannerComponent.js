@@ -29,7 +29,7 @@ function Scanner({navigation}) {
     })
 
     const handleBarCodeScanner = ({ type, data }) => {
-        setScanned(true);
+        setScanned(false);
         fetch(domainName + '/decode', {
             method: 'POST',
             headers: {
@@ -46,7 +46,7 @@ function Scanner({navigation}) {
                 navigation.navigate('AfterScan')
             })
             .catch(error => {
-                console.log("error");
+                console.log(error);
             })
     };
 

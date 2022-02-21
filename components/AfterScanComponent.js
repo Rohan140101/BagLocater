@@ -3,11 +3,15 @@ import { View, Text, StyleSheet, Pressable, Linking } from "react-native";
 import { Table, Row, Rows, Col, Cols } from 'react-native-table-component';
 import { useSelector, useDispatch } from "react-redux";
 
-function AfterScanComponent() {
+function AfterScanComponent({navigation}) {
 
   function callOwner(){
     // Linking.openURL(`tel:${phoneNumber}`)
     Linking.openURL(`tel:7666004769`)
+  }
+
+  function AddLostFound(){
+    navigation.navigate('AddLostFound')
   }
 
     var details = {
@@ -40,7 +44,7 @@ function AfterScanComponent() {
           <Text style={styles.btnText}>Call Owner</Text>
         </Pressable>
 
-        <Pressable style={[styles.btnStyle,styles.addLostFoundBtn]} >
+        <Pressable style={[styles.btnStyle,styles.addLostFoundBtn]} onPress={AddLostFound} >
           <Text style={styles.btnText}>Add to Lost & Found</Text>
         </Pressable>
     </View>
