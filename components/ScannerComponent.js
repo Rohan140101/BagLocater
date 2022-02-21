@@ -46,7 +46,7 @@ function Scanner({navigation}) {
                 navigation.navigate('AfterScan')
             })
             .catch(error => {
-                console.log("error");
+                console.log(error);
             })
     };
 
