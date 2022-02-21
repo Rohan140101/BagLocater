@@ -4,23 +4,24 @@ import { Table, Row, Rows, Col, Cols } from 'react-native-table-component';
 import { useSelector, useDispatch } from "react-redux";
 
 function AfterScanComponent() {
-
-  function callOwner(){
-    // Linking.openURL(`tel:${phoneNumber}`)
-    Linking.openURL(`tel:7666004769`)
-  }
-
     var details = {
       name: "",
       email: "",
       flightNumber: "",
+      phoneNumber: "",
       baggageNumber: "",
       departureAirport: "",
-      arrivalAirport: ""
+      arrivalAirport: "",
+      departureDate: "",
+      arrivalDate: "",
     }
     const passengerDetail = useSelector((state) => {
-      details = {name: state.PassengerReducer.name, email: state.PassengerReducer.email, flightNumber: state.PassengerReducer.flightNumber, baggageNumber: state.PassengerReducer.baggageNumber, departureAirport: state.PassengerReducer.departureAirport, arrivalAirport: state.PassengerReducer.arrivalAirport};
+      details = {name: state.PassengerReducer.name, email: state.PassengerReducer.email, flightNumber: state.PassengerReducer.flightNumber, phoneNumber: state.PassengerReducer.phoneNumber, baggageNumber: state.PassengerReducer.baggageNumber, departureAirport: state.PassengerReducer.departureAirport, arrivalAirport: state.PassengerReducer.arrivalAirport, departureDate: state.PassengerReducer.departureDate, arrivalDate: state.PassengerReducer.arrivalDate};
     })
+
+    function callOwner(){
+      Linking.openURL(`tel:${details.phoneNumber}`)
+    }
 
     tableData = [
       ['Name',details.name],
@@ -28,7 +29,9 @@ function AfterScanComponent() {
       ['Flight No.',details.flightNumber],
       ['Baggage No.',details.baggageNumber],
       ['Departure Airport',details.departureAirport],
-      ['Arrival Airport',details.arrivalAirport]
+      ['Arrival Airport',details.arrivalAirport],
+      ['Departure Date', details.departureDate],
+      ['Arrival Date', details.arrivalDate],
     ]
     return (
     <View style={styles.container}>

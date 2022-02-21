@@ -29,7 +29,7 @@ function Scanner({navigation}) {
     })
 
     const handleBarCodeScanner = ({ type, data }) => {
-        setScanned(true);
+        setScanned(false);
         fetch(domainName + '/decode', {
             method: 'POST',
             headers: {

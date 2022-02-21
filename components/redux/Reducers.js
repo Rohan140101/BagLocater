@@ -3,10 +3,13 @@ import * as ActionTypes from "./ActionTypes";
 const initialState = {
     name: "",
     email: "",
+    phoneNumber: "",
     flightNumber: "",
     baggageNumber: "",
     departureAirport: "",
-    arrivalAirport: ""
+    arrivalAirport: "",
+    departureDate: "",
+    arrivalDate: "",
 }
 
 const PassengerReducer = (state = initialState, action) => {
@@ -26,11 +29,14 @@ const PassengerReducer = (state = initialState, action) => {
         case ActionTypes.ADD_PASSENGER_DETAIL:
             var name = action.payload.Name;
             var email = action.payload.Email;
+            var phoneNumber = action.payload.Phone_No;
             var flightNumber = action.payload.Flight_No;
             var baggageNumber = action.payload.Baggage_No;
             var departureAirport = action.payload.From;
             var arrivalAirport = action.payload.To;
-            return {...state, name, email, flightNumber, baggageNumber, departureAirport, arrivalAirport}
+            var departureDate = action.payload.Departure_Date;
+            var arrivalDate = action.payload.Arrival_Date;
+            return {...state, name, email, flightNumber, baggageNumber, departureAirport, arrivalAirport, phoneNumber, departureDate, arrivalDate}
         default:
             return state;
     }
