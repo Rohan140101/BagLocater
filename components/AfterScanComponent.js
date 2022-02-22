@@ -20,8 +20,7 @@ function AfterScanComponent({navigation}) {
     })
 
     function callOwner(){
-      // Linking.openURL(`tel:${phoneNumber}`)
-      Linking.openURL(`tel:7666004769`)
+      Linking.openURL(`tel:${details.phoneNumber}`)
     }
   
     function AddLostFound(){
