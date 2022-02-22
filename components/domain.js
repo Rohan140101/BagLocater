@@ -1,1 +1,1 @@
-export const domainName = '192.168.43.164';
+export const domainName = 'http://192.168.137.1:8000';

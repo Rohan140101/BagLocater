@@ -1,17 +1,41 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet, Pressable } from "react-native";
+import { View, Text, StyleSheet, Pressable, Linking } from "react-native";
 import { Table, Row, Rows, Col, Cols } from 'react-native-table-component';
+import { useSelector, useDispatch } from "react-redux";
 
-function AfterScanComponent() {
+function AfterScanComponent({navigation}) {
+    var details = {
+      name: "",
+      email: "",
+      flightNumber: "",
+      phoneNumber: "",
+      baggageNumber: "",
+      departureAirport: "",
+      arrivalAirport: "",
+      departureDate: "",
+      arrivalDate: "",
+    }
+    const passengerDetail = useSelector((state) => {
+      details = {name: state.PassengerReducer.name, email: state.PassengerReducer.email, flightNumber: state.PassengerReducer.flightNumber, phoneNumber: state.PassengerReducer.phoneNumber, baggageNumber: state.PassengerReducer.baggageNumber, departureAirport: state.PassengerReducer.departureAirport, arrivalAirport: state.PassengerReducer.arrivalAirport, departureDate: state.PassengerReducer.departureDate, arrivalDate: state.PassengerReducer.arrivalDate};
+    })
 
+    function callOwner(){
+      Linking.openURL(`tel:${details.phoneNumber}`)
+    }
+  
+    function AddLostFound(){
+      navigation.navigate('AddLostFound')
+    }
 
     tableData = [
-      ['Name','Ritik'],
-      ['Email', 'ritikgupta@abc.com'],
-      ['Flight No.','FN1234'],
-      ['Baggage No.','BN6789'],
-      ['Departure Airport','BOM'],
-      ['Arrival Airport','DEL']
+      ['Name',details.name],
+      ['Email', details.email],
+      ['Flight No.',details.flightNumber],
+      ['Baggage No.',details.baggageNumber],
+      ['Departure Airport',details.departureAirport],
+      ['Arrival Airport',details.arrivalAirport],
+      ['Departure Date', details.departureDate],
+      ['Arrival Date', details.arrivalDate],
     ]
     return (
     <View style={styles.container}>
@@ -19,15 +43,15 @@ function AfterScanComponent() {
           <Rows data={tableData} textStyle={styles.text}/>
         </Table>
 
-        <Pressable style={[styles.btnStyle,styles.callOwnerBtn]} >
+        <Pressable style={[styles.btnStyle,styles.callOwnerBtn]} onPress={callOwner} >
           <Text style={styles.btnText}>Call Owner</Text>
         </Pressable>
 
-        <Pressable style={[styles.btnStyle,styles.addLostFoundBtn]} >
+        <Pressable style={[styles.btnStyle,styles.addLostFoundBtn]} onPress={AddLostFound} >
           <Text style={styles.btnText}>Add to Lost & Found</Text>
         </Pressable>
     </View>
-     )
+     );
 }
 
 
