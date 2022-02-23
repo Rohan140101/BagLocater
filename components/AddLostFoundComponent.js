@@ -4,7 +4,7 @@ import { Camera } from 'expo-camera';
 import { Ionicons } from '@expo/vector-icons';
 import Icon  from 'react-native-vector-icons/FontAwesome';
 
-function AddLostFoundComponent() {
+function AddLostFoundComponent({navigation}) {
   const [hasPermission, setHasPermission] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.back);
 
@@ -25,7 +25,9 @@ function AddLostFoundComponent() {
 snap = async () => {
   if (this.camera) {
     let photo = await this.camera.takePictureAsync();
-    console.log(photo)
+    // console.log(photo)
+    // navigation.navigate('SuccessLostFound');
+    navigation.navigate('SelectAirport');
   }
 };
   return (
