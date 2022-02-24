@@ -7,6 +7,9 @@ import { useSelector, useDispatch } from "react-redux";
 import {domainName} from './domain.js';
 
 function AddLostFoundComponent({navigation}) {
+  const [hasPermission, setHasPermission] = useState(null);
+  const [type, setType] = useState(Camera.Constants.Type.back);
+
   var details = {
     name: "",
     email: "",
@@ -21,8 +24,6 @@ function AddLostFoundComponent({navigation}) {
   const passengerDetail = useSelector((state) => {
     details = {name: state.PassengerReducer.name, email: state.PassengerReducer.email, flightNumber: state.PassengerReducer.flightNumber, phoneNumber: state.PassengerReducer.phoneNumber, baggageNumber: state.PassengerReducer.baggageNumber, departureAirport: state.PassengerReducer.departureAirport, arrivalAirport: state.PassengerReducer.arrivalAirport, departureDate: state.PassengerReducer.departureDate, arrivalDate: state.PassengerReducer.arrivalDate};
   })
-    const [hasPermission, setHasPermission] = useState(null);
-    const [type, setType] = useState(Camera.Constants.Type.back);
 
     useEffect(() => {
         (async () => {
@@ -37,6 +38,15 @@ function AddLostFoundComponent({navigation}) {
     if (hasPermission === false) {
         return <Text>No access to camera</Text>;
     }
+
+snap = async () => {
+  if (this.camera) {
+    let photo = await this.camera.takePictureAsync();
+    // console.log(photo)
+    // navigation.navigate('SuccessLostFound');
+    navigation.navigate('SelectAirport');
+  }
+};
 
     const cloudinaryCloud = async (photo) => {
         const data = new FormData();
