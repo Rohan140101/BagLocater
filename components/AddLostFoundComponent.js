@@ -5,10 +5,12 @@ import { Ionicons } from '@expo/vector-icons';
 import Icon  from 'react-native-vector-icons/FontAwesome';
 import { useSelector, useDispatch } from "react-redux";
 import {domainName} from './domain.js';
+import { addUrl } from './redux/ActionCreators.js';
 
 function AddLostFoundComponent({navigation}) {
   const [hasPermission, setHasPermission] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.back);
+  const dispatch = useDispatch();
 
   var details = {
     name: "",
@@ -39,16 +41,8 @@ function AddLostFoundComponent({navigation}) {
         return <Text>No access to camera</Text>;
     }
 
-snap = async () => {
-  if (this.camera) {
-    let photo = await this.camera.takePictureAsync();
-    // console.log(photo)
-    // navigation.navigate('SuccessLostFound');
-    navigation.navigate('SelectAirport');
-  }
-};
 
-    const cloudinaryCloud = async (photo) => {
+    const cloudinaryCloud = (photo) => {
         const data = new FormData();
         data.append('file', photo);
         data.append('upload_preset', 'baglocater');
@@ -59,9 +53,8 @@ snap = async () => {
         })
         .then(res => res.json())
         .then(data => {
-            console.log(data);
-            console.log(data.secure_url);
-            return data.secure_url;
+            var url = data.secure_url
+            dispatch(addUrl({url}));
         })
         .catch(error => {
             console.log(error);
@@ -69,49 +62,62 @@ snap = async () => {
     }
 
     var snap = async () => {
-        if (this.camera) {
-            let photo = await this.camera.takePictureAsync();
-            console.log(photo);
-            const source = {
-                uri: photo.uri,
-                type: 'image/jpg',
-                name: details.baggageNumber
-            }
-            const pic_url = await cloudinaryCloud(source);
-            console.log(pic_url);
-            fetch(domainName + '/addLostAndFound', {
-            method: 'POST',
-            headers: {
-                Accept: 'application/json',
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                name: details.name,
-                email: details.email,
-                phoneNumber: details.phoneNumber,
-                flightNumber: details.flightNumber,
-                baggageNumber: details.baggageNumber,
-                departureAirport: details.departureAirport,
-                arrivalAirport: details.arrivalAirport,
-                departureDate: details.departureDate,
-                arrivalDate: details.arrivalDate,
-                url: pic_url
-            })
-        })
-            .then((res) => res.json())
-            .then(res => {
-                if (res.success == 'true') {
-                    Alert.alert('Added Bag Successfully');
-                    navigation.navigate('Home');
-                } else {
-                    Alert.alert("Not Added Bag");
-                }
-            })
-            .catch(error => {
-                console.log(error);
-            })
+      if (this.camera) {
+        let photo = await this.camera.takePictureAsync();
+        const source = {
+          uri: photo.uri,
+          type: 'image/jpg',
+          name: details.baggageNumber
         }
+        cloudinaryCloud(source);
+        navigation.navigate('SelectAirport');
+      }
     };
+
+    // var snap = async () => {
+    //     if (this.camera) {
+    //         let photo = await this.camera.takePictureAsync();
+    //         console.log(photo);
+    //         const source = {
+    //             uri: photo.uri,
+    //             type: 'image/jpg',
+    //             name: details.baggageNumber
+    //         }
+    //         const pic_url = await cloudinaryCloud(source);
+    //         console.log(pic_url);
+    //         fetch(domainName + '/addLostAndFound', {
+    //         method: 'POST',
+    //         headers: {
+    //             Accept: 'application/json',
+    //             "Content-Type": "application/json"
+    //         },
+    //         body: JSON.stringify({
+    //             name: details.name,
+    //             email: details.email,
+    //             phoneNumber: details.phoneNumber,
+    //             flightNumber: details.flightNumber,
+    //             baggageNumber: details.baggageNumber,
+    //             departureAirport: details.departureAirport,
+    //             arrivalAirport: details.arrivalAirport,
+    //             departureDate: details.departureDate,
+    //             arrivalDate: details.arrivalDate,
+    //             url: pic_url
+    //         })
+    //     })
+    //         .then((res) => res.json())
+    //         .then(res => {
+    //             if (res.success == 'true') {
+    //                 Alert.alert('Added Bag Successfully');
+    //                 navigation.navigate('Home');
+    //             } else {
+    //                 Alert.alert("Not Added Bag");
+    //             }
+    //         })
+    //         .catch(error => {
+    //             console.log(error);
+    //         })
+    //     }
+    // };
   return (
     <View style={styles.container}>
       <Camera style={styles.camera} type={type} ref={ref => {this.camera = ref;}}>

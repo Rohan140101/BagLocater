@@ -2,8 +2,11 @@ import React, { useState } from "react";
 import { StyleSheet, Text, View, Pressable } from 'react-native';
 import { Dropdown } from 'react-native-element-dropdown';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import {useDispatch, useSelector} from "react-redux";
+import { addAirport } from "./redux/ActionCreators";
 
-function SelectAirportComponent() {
+function SelectAirportComponent({navigation}) {
+
 
     const data = [
         { label: 'Chhatrapati Shivaji International Airport (BOM)', value: 'BOM' },
@@ -19,15 +22,21 @@ function SelectAirportComponent() {
     const [value, setValue] = useState(null);
     const [isFocus, setIsFocus] = useState(false);
 
+    const dispatch = useDispatch();
+
     const renderLabel = () => {
         return (
             <Text style={[styles.label, isFocus && { color: 'blue' }]}>
                 Select Airport
             </Text>
         );
-
-        return null;
     };
+
+
+    const handlePress = () => {
+        dispatch(addAirport(value));
+        navigation.navigate("SuccessLostFound");
+    }
 
     return (
         <View style={styles.container}>
@@ -61,7 +70,7 @@ function SelectAirportComponent() {
                     />
                 )}
             />
-            <Pressable style={ styles.btnStyle }>
+            <Pressable style={ styles.btnStyle } onPress={handlePress}>
             <Text style={ styles.btnTextStyle }>Add</Text>
             </Pressable>
             
