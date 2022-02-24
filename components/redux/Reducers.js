@@ -36,6 +36,7 @@ const PassengerReducer = (state = initialState, action) => {
             var arrivalAirport = action.payload.To;
             var departureDate = action.payload.Departure_Date;
             var arrivalDate = action.payload.Arrival_Date;
+            console.log(action.payload);
             return {...state, name, email, flightNumber, baggageNumber, departureAirport, arrivalAirport, phoneNumber, departureDate, arrivalDate}
         default:
             return state;
