@@ -38,10 +38,37 @@ function AddLostFoundComponent({navigation}) {
         return <Text>No access to camera</Text>;
     }
 
+    const cloudinaryCloud = async (photo) => {
+        const data = new FormData();
+        data.append('file', photo);
+        data.append('upload_preset', 'baglocater');
+        data.append('cloud_name', 'ripra');
+        fetch("https://api.cloudinary.com/v1_1/ripra/upload", {
+            method: 'POST',
+            body: data
+        })
+        .then(res => res.json())
+        .then(data => {
+            console.log(data);
+            console.log(data.secure_url);
+            return data.secure_url;
+        })
+        .catch(error => {
+            console.log(error);
+        })
+    }
+
     var snap = async () => {
         if (this.camera) {
             let photo = await this.camera.takePictureAsync();
             console.log(photo);
+            const source = {
+                uri: photo.uri,
+                type: 'image/jpg',
+                name: details.baggageNumber
+            }
+            const pic_url = await cloudinaryCloud(source);
+            console.log(pic_url);
             fetch(domainName + '/addLostAndFound', {
             method: 'POST',
             headers: {
@@ -57,7 +84,8 @@ function AddLostFoundComponent({navigation}) {
                 departureAirport: details.departureAirport,
                 arrivalAirport: details.arrivalAirport,
                 departureDate: details.departureDate,
-                arrivalDate: details.arrivalDate
+                arrivalDate: details.arrivalDate,
+                url: pic_url
             })
         })
             .then((res) => res.json())
