@@ -10,6 +10,7 @@ const initialState = {
     arrivalAirport: "",
     departureDate: "",
     arrivalDate: "",
+    url: ""
 }
 
 const PassengerReducer = (state = initialState, action) => {
