@@ -10,6 +10,7 @@ import { addUrl } from './redux/ActionCreators.js';
 function AddLostFoundComponent({navigation}) {
   const [hasPermission, setHasPermission] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.back);
+
   const dispatch = useDispatch();
 
   var details = {
@@ -22,9 +23,21 @@ function AddLostFoundComponent({navigation}) {
     arrivalAirport: "",
     departureDate: "",
     arrivalDate: "",
+    url: ""
   }
   const passengerDetail = useSelector((state) => {
-    details = {name: state.PassengerReducer.name, email: state.PassengerReducer.email, flightNumber: state.PassengerReducer.flightNumber, phoneNumber: state.PassengerReducer.phoneNumber, baggageNumber: state.PassengerReducer.baggageNumber, departureAirport: state.PassengerReducer.departureAirport, arrivalAirport: state.PassengerReducer.arrivalAirport, departureDate: state.PassengerReducer.departureDate, arrivalDate: state.PassengerReducer.arrivalDate};
+    details = {
+        name: state.PassengerReducer.name, 
+        email: state.PassengerReducer.email, 
+        flightNumber: state.PassengerReducer.flightNumber, 
+        phoneNumber: state.PassengerReducer.phoneNumber, 
+        baggageNumber: state.PassengerReducer.baggageNumber, 
+        departureAirport: state.PassengerReducer.departureAirport, 
+        arrivalAirport: state.PassengerReducer.arrivalAirport, 
+        departureDate: state.PassengerReducer.departureDate, 
+        arrivalDate: state.PassengerReducer.arrivalDate, 
+        url: state.PassengerReducer.url
+    };
   })
 
     useEffect(() => {
@@ -41,7 +54,6 @@ function AddLostFoundComponent({navigation}) {
         return <Text>No access to camera</Text>;
     }
 
-
     const cloudinaryCloud = (photo) => {
         const data = new FormData();
         data.append('file', photo);
@@ -55,6 +67,7 @@ function AddLostFoundComponent({navigation}) {
         .then(data => {
             var url = data.secure_url
             dispatch(addUrl({url}));
+            navigation.navigate('SelectAirport');
         })
         .catch(error => {
             console.log(error);
@@ -70,54 +83,9 @@ function AddLostFoundComponent({navigation}) {
           name: details.baggageNumber
         }
         cloudinaryCloud(source);
-        navigation.navigate('SelectAirport');
       }
     };
 
-    // var snap = async () => {
-    //     if (this.camera) {
-    //         let photo = await this.camera.takePictureAsync();
-    //         console.log(photo);
-    //         const source = {
-    //             uri: photo.uri,
-    //             type: 'image/jpg',
-    //             name: details.baggageNumber
-    //         }
-    //         const pic_url = await cloudinaryCloud(source);
-    //         console.log(pic_url);
-    //         fetch(domainName + '/addLostAndFound', {
-    //         method: 'POST',
-    //         headers: {
-    //             Accept: 'application/json',
-    //             "Content-Type": "application/json"
-    //         },
-    //         body: JSON.stringify({
-    //             name: details.name,
-    //             email: details.email,
-    //             phoneNumber: details.phoneNumber,
-    //             flightNumber: details.flightNumber,
-    //             baggageNumber: details.baggageNumber,
-    //             departureAirport: details.departureAirport,
-    //             arrivalAirport: details.arrivalAirport,
-    //             departureDate: details.departureDate,
-    //             arrivalDate: details.arrivalDate,
-    //             url: pic_url
-    //         })
-    //     })
-    //         .then((res) => res.json())
-    //         .then(res => {
-    //             if (res.success == 'true') {
-    //                 Alert.alert('Added Bag Successfully');
-    //                 navigation.navigate('Home');
-    //             } else {
-    //                 Alert.alert("Not Added Bag");
-    //             }
-    //         })
-    //         .catch(error => {
-    //             console.log(error);
-    //         })
-    //     }
-    // };
   return (
     <View style={styles.container}>
       <Camera style={styles.camera} type={type} ref={ref => {this.camera = ref;}}>

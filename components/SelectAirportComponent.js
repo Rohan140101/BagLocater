@@ -1,12 +1,39 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, View, Pressable } from 'react-native';
+import { StyleSheet, Text, View, Pressable, Alert } from 'react-native';
 import { Dropdown } from 'react-native-element-dropdown';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {useDispatch, useSelector} from "react-redux";
+import { domainName } from "./domain";
 import { addAirport } from "./redux/ActionCreators";
 
 function SelectAirportComponent({navigation}) {
 
+    var details = {
+        name: "",
+        email: "",
+        flightNumber: "",
+        phoneNumber: "",
+        baggageNumber: "",
+        departureAirport: "",
+        arrivalAirport: "",
+        departureDate: "",
+        arrivalDate: "",
+        url: ""
+      }
+      const passengerDetail = useSelector((state) => {
+        details = {
+            name: state.PassengerReducer.name, 
+            email: state.PassengerReducer.email, 
+            flightNumber: state.PassengerReducer.flightNumber, 
+            phoneNumber: state.PassengerReducer.phoneNumber, 
+            baggageNumber: state.PassengerReducer.baggageNumber, 
+            departureAirport: state.PassengerReducer.departureAirport, 
+            arrivalAirport: state.PassengerReducer.arrivalAirport, 
+            departureDate: state.PassengerReducer.departureDate, 
+            arrivalDate: state.PassengerReducer.arrivalDate, 
+            url: state.PassengerReducer.url
+        };
+      })
 
     const data = [
         { label: 'Chhatrapati Shivaji International Airport (BOM)', value: 'BOM' },
@@ -30,12 +57,43 @@ function SelectAirportComponent({navigation}) {
                 Select Airport
             </Text>
         );
+
+        return null;
     };
 
-
     const handlePress = () => {
-        dispatch(addAirport(value));
-        navigation.navigate("SuccessLostFound");
+        fetch(domainName + '/addLostAndFound', {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                name: details.name,
+                email: details.email,
+                phoneNumber: details.phoneNumber,
+                flightNumber: details.flightNumber,
+                baggageNumber: details.baggageNumber,
+                departureAirport: details.departureAirport,
+                arrivalAirport: details.arrivalAirport,
+                departureDate: details.departureDate,
+                arrivalDate: details.arrivalDate,
+                url: details.url,
+                airport: value
+            })
+        })
+            .then((res) => res.json())
+            .then(res => {
+                if (res.success == 'true') {
+                    Alert.alert('Added Bag Successfully');
+                    navigation.navigate("SuccessLostFound");
+                } else {
+                    Alert.alert("Not Added Bag");
+                }
+            })
+            .catch(error => {
+                console.log(error);
+            });
     }
 
     return (
