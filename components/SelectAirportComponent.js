@@ -57,8 +57,6 @@ function SelectAirportComponent({navigation}) {
                 Select Airport
             </Text>
         );
-
-        return null;
     };
 
     const handlePress = () => {
