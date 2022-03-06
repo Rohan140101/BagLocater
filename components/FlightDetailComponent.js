@@ -4,7 +4,7 @@ import { Input } from "react-native-elements";
 import Icon from "react-native-vector-icons/FontAwesome";
 
 
-function FlightDetailComponent() {
+function FlightDetailComponent({navigation}) {
     return (
         <View>
             <View style={styles.View1}>
@@ -18,7 +18,7 @@ function FlightDetailComponent() {
                     <Text style={{ fontSize: 15, color: "white", marginLeft: 5 }}>Next</Text>
                 </Icon.Button> */}
                 <Button
-                    title="Next"
+                    title="Next" onPress={() => navigation.navigate("SearchedBags")}
                 />
             </View>
         </View>
