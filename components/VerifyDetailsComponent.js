@@ -1,94 +1,141 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet, Pressable, Linking } from "react-native";
+import { View, Text, StyleSheet, Pressable, Linking, Image, ScrollView } from "react-native";
 import { Table, Row, Rows, Col, Cols } from 'react-native-table-component';
 import { useSelector, useDispatch } from "react-redux";
+import {domainName} from './domain.js';
 
-function VerifyDetailsComponent({route, navigation}) {
+function VerifyDetailsComponent({ route, navigation }) {
   // console.log(route.params.data[0].name)
-    var details = {
-      name: "",
-      email: "",
-      flightNumber: "",
-      phoneNumber: "",
-      baggageNumber: "",
-      departureAirport: "",
-      arrivalAirport: "",
-      departureDate: "",
-      arrivalDate: "",
-    }
-    const passengerDetail = useSelector((state) => {
-      details = {
-        name: route.params.data[0].name, 
-        email: route.params.data[0].email, 
-        flightNumber: route.params.data[0].flightNumber, 
-        phoneNumber: route.params.data[0].phoneNumber, 
-        baggageNumber: route.params.data[0].baggageNumber, 
-        departureAirport: route.params.data[0].departureAirport, 
-        arrivalAirport: route.params.data[0].arrivalAirport, 
-        departureDate: route.params.data[0].departureDate, 
-        arrivalDate: route.params.data[0].arrivalDate
-      };
-    })
+  var details = {
+    name: "",
+    email: "",
+    flightNumber: "",
+    phoneNumber: "",
+    baggageNumber: "",
+    departureAirport: "",
+    arrivalAirport: "",
+    departureDate: "",
+    arrivalDate: "",
+  }
+  const passengerDetail = useSelector((state) => {
+    details = {
+      name: route.params.data[0].name,
+      email: route.params.data[0].email,
+      flightNumber: route.params.data[0].flightNumber,
+      phoneNumber: route.params.data[0].phoneNumber,
+      baggageNumber: route.params.data[0].baggageNumber,
+      departureAirport: route.params.data[0].departureAirport,
+      arrivalAirport: route.params.data[0].arrivalAirport,
+      departureDate: route.params.data[0].departureDate,
+      arrivalDate: route.params.data[0].arrivalDate
+    };
+  })
 
-    function callOwner(){
-      Linking.openURL(`tel:${details.phoneNumber}`)
-    }
-  
-    function AddLostFound(){
-      navigation.navigate('AddLostFound')
-    }
+  function Verified() {
+    fetch(domainName + '/verifydetails', {
+      method: 'POST',
+      headers: {
+          Accept: 'application/json',
+          "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+          baggageNo: details.baggageNumber,
+      })
+  })
+      .then((res) => res.json())
+      .then(res => {
+          if (res.success == 'true') {
+              // Alert.alert('Congratulations you are signed in');
+              // console.log(res.data)
+              navigation.navigate('SuccessVerifyDetails');
+          } else {
+              Alert.alert("Invalid Baggage Number");
+          }
+      })
+      .catch(error => {
+          console.log(error);
+      })
+  }
 
-    tableData = [
-      ['Name',details.name],
-      ['Email', details.email],
-      ['Flight No.',details.flightNumber],
-      ['Baggage No.',details.baggageNumber],
-      ['Departure Airport',details.departureAirport],
-      ['Arrival Airport',details.arrivalAirport],
-      ['Departure Date', details.departureDate],
-      ['Arrival Date', details.arrivalDate],
-    ]
-    return (
+  function Cancel() {
+    navigation.navigate('Home')
+  }
+
+  tableData = [
+    ['Name', details.name],
+    ['Email', details.email],
+    ['Flight No.', details.flightNumber],
+    ['Baggage No.', details.baggageNumber],
+    ['Departure Airport', details.departureAirport],
+    ['Arrival Airport', details.arrivalAirport],
+    ['Departure Date', details.departureDate],
+    ['Arrival Date', details.arrivalDate],
+  ]
+  return (
     <View style={styles.container}>
-        <Table borderStyle={{borderWidth: 2, borderColor: '#c8e1ff'}}>
-          <Rows data={tableData} textStyle={styles.text}/>
+      <ScrollView>
+        <Table borderStyle={{ borderWidth: 2, borderColor: '#c8e1ff' }}>
+          <Rows data={tableData} textStyle={styles.text} />
         </Table>
 
-        <Pressable style={[styles.btnStyle,styles.callOwnerBtn]} onPress={callOwner} >
+        <View style={styles.bagLayout}>
+          <Image style={styles.bagImage} source={{ uri: route.params.data[0].url }} />
+        </View>
+
+
+
+        <Pressable style={[styles.btnStyle, styles.VerifiedBtn]} onPress={Verified} >
           <Text style={styles.btnText}>Verify Details</Text>
         </Pressable>
 
-        <Pressable style={[styles.btnStyle,styles.addLostFoundBtn]} onPress={AddLostFound} >
+        <Pressable style={[styles.btnStyle, styles.CancelBtn]} onPress={Cancel} >
           <Text style={styles.btnText}>Cancel</Text>
         </Pressable>
+
+      </ScrollView>
+
     </View>
-     );
+  );
 }
 
 
 const styles = StyleSheet.create({
-  container: { flex: 1, padding: 16, paddingTop: 30, backgroundColor: '#fff' },
+  container: { flex: 1, padding: 16, paddingTop: 20, backgroundColor: '#fff' },
   head: { height: 40, backgroundColor: '#f1f8ff' },
   text: { margin: 6 },
-  callOwnerBtn : {
-    backgroundColor: '#009387',
+  VerifiedBtn: {
+    backgroundColor: '#900c3f',
   },
-  btnText:{
-    color:'white',
+  btnText: {
+    color: 'white',
     fontSize: 18
   },
-  addLostFoundBtn:{
-    backgroundColor: '#21c92b',
+  CancelBtn: {
+    backgroundColor: '#ff1919',
   },
-  btnStyle:{
-    marginTop:25,
+  btnStyle: {
+    marginTop: 25,
     alignItems: 'center',
     justifyContent: 'center',
     paddingVertical: 10,
     paddingHorizontal: 28,
     borderRadius: 8,
     elevation: 3,
-  }
+  },
+  bagLayout: {
+    // flexDirection:'column',
+    width: 300,
+    marginLeft: "auto",
+    marginRight: "auto",
+    backgroundColor: 'white'
+  },
+  bagImage: {
+    width: 330,
+    height: 330,
+    margin: 10,
+    alignSelf: 'center',
+
+  },
 
 
 });
