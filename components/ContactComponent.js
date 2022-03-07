@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
     },
     // queryInput:{
     //      borderBottomWidth:1,
-    //      width:350
+    //      width:350 
     // },
     action: {
         flexDirection: 'row',
