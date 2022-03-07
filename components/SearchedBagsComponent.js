@@ -2,39 +2,34 @@ import React from 'react';
 import { View, Text,Image, StyleSheet,ScrollView,Button} from "react-native";
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
-function SearchedBagsComponent({navigation}) {
+function SearchedBagsComponent({route, navigation}) {
+  const {bags} = route.params;
+  function handlePress(baggageNumber, flightNumber, date, airport, url) {
+    navigation.navigate('BagDetails', {
+      baggageNumber,
+      flightNumber,
+      date,
+      airport,
+      url
+    });
+  }
+
   return (
     <View style={styles.container}>
         <Text style={styles.headerText}>
             All Bags Lost on 05-02-2022 of flight FN67890
         </Text>
         <ScrollView>
-        {/* First Row  */}
-        <View style={styles.bagLayout}>
-            <TouchableOpacity style={styles.indiBagView} onPress = {() => navigation.navigate("BagDetails")}>
-               <Image style={styles.bagImage} source={require('../assets/images/bag1.webp')} />
-               <Text style={styles.bagOwnerName}>Ritesh Dewoolkar</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity style={styles.indiBagView}>
-               <Image style={styles.bagImage} source={require('../assets/images/bag2.webp')} />
-               <Text style={styles.bagOwnerName}>Ritik Gupta</Text>
-            </TouchableOpacity>
-        </View>
-        {/* Second Row */}
-        <View style={styles.bagLayout}>
-            <TouchableOpacity style={styles.indiBagView}>
-               <Image style={styles.bagImage} source={require('../assets/images/bag3.webp')} />
-               <Text style={styles.bagOwnerName}>Rohan Kuckian</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity style={styles.indiBagView}>
-               <Image style={styles.bagImage} source={require('../assets/images/bag4.webp')} />
-               <Text style={styles.bagOwnerName}>ABC </Text>
-            </TouchableOpacity>
-        </View>
-      
-        
+          <View style={styles.bagLayout}>
+            {bags.map(element => {
+              return (
+                  <TouchableOpacity key={element.id} style={styles.indiBagView} onPress = {() => handlePress(element.baggageNumber, element.flightNumber, element.arrivalDate, element.airport, element.url)}>
+                    <Image style={styles.bagImage} source={{uri: element.url}} />
+                    <Text style={styles.bagOwnerName}>{element.name}</Text>
+                  </TouchableOpacity>
+          )
+            })}
+          </View>
         </ScrollView>
 
         <Button
@@ -58,7 +53,10 @@ const styles = StyleSheet.create({
     fontWeight:'bold'
   },
   bagLayout:{
-    flexDirection:'row'
+    flexDirection:'column',
+    width: 300,
+    marginLeft: "auto",
+    marginRight: "auto"
   },
   indiBagView:{
     elevation:10,

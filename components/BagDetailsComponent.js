@@ -3,22 +3,22 @@ import { View,StyleSheet,Text,Image} from "react-native";
 import { Table,Row,Rows } from 'react-native-table-component';
 
 
-function BagDetailsComponent() {
-
+function BagDetailsComponent({route, navigation}) {
+  const {baggageNumber, flightNumber, date, airport, url} = route.params;
   const TABLE_CONTENT = {
-    tableHead : ['Baggage No', 'BN12345'],
-    tableData : [['Flight No','FN67890'],['Date','06-03-2022'],['Currently At','Mumbai International Airport']]
+    tableHead : ['Baggage No', baggageNumber],
+    tableData : [['Flight No',flightNumber],['Date',date],['Currently At',airport]]
 
   };
   return (
     <View style= {styles.mainView}>
-        <Image source = {require('../assets/images/bag1.webp')} style = {styles.bagImage} />
+        <Image source = {{uri: url}} style = {styles.bagImage} />
         <View>
             <Table borderStyle = {{borderWidth:2}} style = {styles.tableStyle} >
                <Row data={TABLE_CONTENT.tableHead} textStyle={styles.headText} style = {styles.headerBack} />
                <Rows data = {TABLE_CONTENT.tableData} textStyle={styles.dataText} />              
             </Table>
-            <Text style={styles.bottomText}>Your bag is located at Mumbai International Airport. You can collect it from there.</Text>
+            <Text style={styles.bottomText}>Your bag is located at {airport} International Airport. You can collect it from there.</Text>
             <Text style={styles.bottomText}>Keep Note of Your Baggage Number</Text>
             <Text style={styles.bottomText}>Thank You!</Text>
         </View>
