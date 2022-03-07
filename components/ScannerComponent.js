@@ -4,6 +4,7 @@ import { BarCodeScanner } from "expo-barcode-scanner";
 import {domainName} from './domain.js';
 import { addPassengerDetail } from "./redux/ActionCreators";
 import { connect, useSelector, useDispatch } from 'react-redux';
+import { Camera } from "expo-camera";
 
 // const mapStateToProps = (state) => {
 //     return {
@@ -23,7 +24,7 @@ function Scanner({navigation}) {
 
     useEffect(() => {
         (async () => {
-            const { status } = await BarCodeScanner.requestPermissionsAsync();
+            const { status } = await Camera.requestCameraPermissionsAsync();
             setPermission(status === "granted");
         })();
     })
@@ -31,7 +32,7 @@ function Scanner({navigation}) {
     
 
     const handleBarCodeScanner = ({ type, data }) => {
-        setScanned(true);
+        setScanned(true)
         fetch(domainName + '/decode', {
             method: 'POST',
             headers: {
@@ -63,8 +64,10 @@ function Scanner({navigation}) {
 
     return (
         <View style={styles.container}>
-            <BarCodeScanner onBarCodeScanned={scanned ? undefined : handleBarCodeScanner} style={StyleSheet.absoluteFillObject} />
-            {scanned && <Button title={'Tap to Scan Again'} onPress={() => setScanned(false)} />}
+            <Camera onBarCodeScanned={handleBarCodeScanner} style={StyleSheet.absoluteFillObject} />
+            {scanned && <Button title={'Tap to Scan Again'} onPress={() => {
+                navigation.push('Scanner')    
+            }} />}
         </View>
     )
 }
