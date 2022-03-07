@@ -58,8 +58,8 @@ function AddLostFoundComponent({navigation}) {
         const data = new FormData();
         data.append('file', photo);
         data.append('upload_preset', 'baglocater');
-        data.append('cloud_name', 'ripra');
-        fetch("https://api.cloudinary.com/v1_1/ripra/upload", {
+        data.append('cloud_name', 'baglocater');
+        fetch("https://api.cloudinary.com/v1_1/baglocater/upload", {
             method: 'POST',
             body: data
         })
