@@ -6,7 +6,9 @@ function ScanRetrieveComponent({ navigation }) {
     return (
         <View style={{ display: 'flex', alignItems: 'center', marginTop: 100 }}>
             <View style={styles.HomeView3}>
-                <Pressable style={styles.btnStyle} onPress={() => navigation.navigate("Scanner")}>
+                <Pressable style={styles.btnStyle} onPress={() => {
+                    navigation.navigate("Scanner")
+                    }}>
                     <View style={{ display: 'flex', flexDirection: 'row' }}>
                         <Icon style={styles.iconStyle1} name="qrcode" type="font-awesome" size={30} color='white' />
                         <Text style={styles.btnTextStyle1}>Scan QR</Text>
@@ -14,7 +16,7 @@ function ScanRetrieveComponent({ navigation }) {
                 </Pressable>
             </View>
             <View style={styles.HomeView3}>
-                <Pressable style={styles.btnStyle} onPress={() => navigation.navigate("FlightDetail")}>
+                <Pressable style={styles.btnStyle} onPress={() => navigation.navigate("RetrieveBag")}>
                     <View style={{ display: 'flex', flexDirection: 'row' }}>
                         <Icon style={styles.iconStyle2} name="suitcase" type="font-awesome" size={30} color='white' />
                         <Text style={styles.btnTextStyle2}>Retrieve Bag</Text>

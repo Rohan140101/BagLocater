@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet, Button } from "react-native";
+import { View, Text, StyleSheet, Button  } from "react-native";
 import { BarCodeScanner } from "expo-barcode-scanner";
 import {domainName} from './domain.js';
 import { addPassengerDetail } from "./redux/ActionCreators";
@@ -17,7 +17,7 @@ import { connect, useSelector, useDispatch } from 'react-redux';
 
 function Scanner({navigation}) {
     const [hasPermission, setPermission] = useState(null);
-    const [scanned, setScanned] = useState(false);
+    const [scanned, setScanned] = useState(false);    
 
     const dispatch = useDispatch();
 
@@ -27,6 +27,8 @@ function Scanner({navigation}) {
             setPermission(status === "granted");
         })();
     })
+
+    
 
     const handleBarCodeScanner = ({ type, data }) => {
         setScanned(true);
@@ -43,7 +45,8 @@ function Scanner({navigation}) {
             .then((res) => res.json())
             .then(res => {
                 dispatch(addPassengerDetail(res))
-                navigation.navigate('AfterScan')
+                    navigation.navigate('AfterScan');
+                
             })
             .catch(error => {
                 console.log(error);
