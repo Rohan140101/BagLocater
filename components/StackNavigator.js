@@ -8,6 +8,8 @@ import AddLostFoundComponent from "./AddLostFoundComponent";
 import SuccessLostFoundComponent from "./SuccessLostFoundComponent";
 import SelectAirportComponent from "./SelectAirportComponent";
 import Scanner from "./ScannerComponent";
+import SearchedBagsComponent from "./SearchedBagsComponent";
+import BagDetailsComponent from "./BagDetailsComponent";
 
 const Stack = createStackNavigator();
 
@@ -22,6 +24,8 @@ const StackNavigator = () => {
             <Stack.Screen name="AddLostFound" component={AddLostFoundComponent} />
             <Stack.Screen name="SuccessLostFound" component={SuccessLostFoundComponent} />
             <Stack.Screen name="SelectAirport" component={SelectAirportComponent} />
+            <Stack.Screen name="SearchedBags" component={SearchedBagsComponent}/>
+            <Stack.Screen name="BagDetails" component={BagDetailsComponent} />
         </Stack.Navigator>
     )
 }
