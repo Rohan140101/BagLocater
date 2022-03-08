@@ -12,6 +12,7 @@ import SearchedBagsComponent from "./SearchedBagsComponent";
 import BagDetailsComponent from "./BagDetailsComponent";
 import RetrieveBagComponent from "./RetrieveBagComponent";
 import VerifyDetailsComponent from "./VerifyDetailsComponent";
+import SuccessVerifyDetailsComponent from "./SuccessVerifyDetailsComponent";
 
 const Stack = createStackNavigator();
 
@@ -30,6 +31,7 @@ const StackNavigator = () => {
             <Stack.Screen name="BagDetails" component={BagDetailsComponent} />
             <Stack.Screen name="RetrieveBag" component={RetrieveBagComponent} />
             <Stack.Screen name="VerifyDetails" component={VerifyDetailsComponent} />
+            <Stack.Screen name="SuccessVerifyDetails" component={SuccessVerifyDetailsComponent} />
         </Stack.Navigator>
     )
 }
