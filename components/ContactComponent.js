@@ -60,10 +60,6 @@ const styles = StyleSheet.create({
     
        
     },
-    // queryInput:{
-    //      borderBottomWidth:1,
-    //      width:350 
-    // },
     action: {
         flexDirection: 'row',
         marginTop: 20,

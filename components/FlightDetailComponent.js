@@ -1,7 +1,6 @@
-import React, { Component, useState } from "react";
+import React, { useState } from "react";
 import { View, Text, StyleSheet, Button } from "react-native";
 import { Input } from "react-native-elements";
-import Icon from "react-native-vector-icons/FontAwesome";
 import {domainName} from "./domain";
 
 

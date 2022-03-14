@@ -4,7 +4,6 @@ import { Dropdown } from 'react-native-element-dropdown';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {useDispatch, useSelector} from "react-redux";
 import { domainName } from "./domain";
-import { addAirport } from "./redux/ActionCreators";
 
 function SelectAirportComponent({navigation}) {
 
