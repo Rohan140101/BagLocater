@@ -1,20 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, Button  } from "react-native";
-import { BarCodeScanner } from "expo-barcode-scanner";
 import {domainName} from './domain.js';
 import { addPassengerDetail } from "./redux/ActionCreators";
-import { connect, useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Camera } from "expo-camera";
-
-// const mapStateToProps = (state) => {
-//     return {
-
-//     }
-// }
-
-// const mapDispatchToProps = (dispatch) => ({
-//     addPassengerDetail: (details) => dispatch(addPassengerDetail(details))
-// })
 
 function Scanner({navigation}) {
     const [hasPermission, setPermission] = useState(null);
@@ -31,7 +20,7 @@ function Scanner({navigation}) {
 
     
 
-    const handleBarCodeScanner = ({ type, data }) => {
+    const handleBarCodeScanner = ({ data }) => {
         setScanned(true)
         fetch(domainName + '/decode', {
             method: 'POST',
@@ -80,5 +69,4 @@ const styles = StyleSheet.create({
     },
 });
 
-// export default connect(mapStateToProps, mapDispatchToProps)(Scanner);
 export default Scanner;

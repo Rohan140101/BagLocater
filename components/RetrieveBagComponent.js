@@ -1,7 +1,6 @@
-import React, { Component } from "react";
-import { View, Text, StyleSheet, Button, Alert } from "react-native";
+import React from "react";
+import { View, StyleSheet, Button, Alert } from "react-native";
 import { Input } from "react-native-elements";
-import Icon from "react-native-vector-icons/FontAwesome";
 import {domainName} from './domain.js';
 
 
@@ -24,8 +23,6 @@ function RetrieveBagComponent({navigation}) {
             .then((res) => res.json())
             .then(res => {
                 if (res.success == 'true') {
-                    // Alert.alert('Congratulations you are signed in');
-                    // console.log(res.data)
                     navigation.navigate('VerifyDetails',{data:res.data});
                 } else {
                     Alert.alert("Invalid Baggage Number");
@@ -43,9 +40,6 @@ function RetrieveBagComponent({navigation}) {
                 <Input placeholder="Enter Baggage Number" onChangeText={(baggageNoText) => setBaggageNo(baggageNoText)}/>
             </View>
             <View style={styles.View3}>
-                {/* <Icon.Button name="search" style={{ width: 100 }} onPress={() => console.log("Ok")}>
-                    <Text style={{ fontSize: 15, color: "white", marginLeft: 5 }}>Next</Text>
-                </Icon.Button> */}
                 <Button
                     title="Next" onPress={handlePress}
                 />

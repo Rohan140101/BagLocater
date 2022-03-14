@@ -1,5 +1,5 @@
 import * as React from "react";
-import { View, Text, Card, Image,StyleSheet } from "react-native";
+import { View, Text, Image,StyleSheet } from "react-native";
 
 function AboutComponent() {
     return (

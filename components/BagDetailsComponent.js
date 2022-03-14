@@ -3,7 +3,7 @@ import { View,StyleSheet,Text,Image} from "react-native";
 import { Table,Row,Rows } from 'react-native-table-component';
 
 
-function BagDetailsComponent({route, navigation}) {
+function BagDetailsComponent({route}) {
   const {baggageNumber, flightNumber, date, airport, url} = route.params;
   const TABLE_CONTENT = {
     tableHead : ['Baggage No', baggageNumber],

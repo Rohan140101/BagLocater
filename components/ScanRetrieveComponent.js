@@ -45,8 +45,6 @@ const styles = StyleSheet.create({
         backgroundColor: '#c837fa',
         width: 330,
         alignContent: "center",
-        // direction : ""
-
     },
     btnTextStyle1: {
         color: 'white',

@@ -1,11 +1,11 @@
-import React, { Component } from "react";
-import { View, Text, StyleSheet, Pressable, Linking, Image, ScrollView } from "react-native";
-import { Table, Row, Rows, Col, Cols } from 'react-native-table-component';
-import { useSelector, useDispatch } from "react-redux";
+import React from "react";
+import { View, Text, StyleSheet, Pressable, Image, ScrollView } from "react-native";
+import { Table, Rows } from 'react-native-table-component';
+import { useSelector } from "react-redux";
 import {domainName} from './domain.js';
 
 function VerifyDetailsComponent({ route, navigation }) {
-  // console.log(route.params.data[0].name)
+  
   var details = {
     name: "",
     email: "",
@@ -45,8 +45,6 @@ function VerifyDetailsComponent({ route, navigation }) {
       .then((res) => res.json())
       .then(res => {
           if (res.success == 'true') {
-              // Alert.alert('Congratulations you are signed in');
-              // console.log(res.data)
               navigation.navigate('SuccessVerifyDetails');
           } else {
               Alert.alert("Invalid Baggage Number");
@@ -123,7 +121,6 @@ const styles = StyleSheet.create({
     elevation: 3,
   },
   bagLayout: {
-    // flexDirection:'column',
     width: 300,
     marginLeft: "auto",
     marginRight: "auto",

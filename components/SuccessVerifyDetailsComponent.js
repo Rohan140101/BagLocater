@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Text, View, Pressable, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, Pressable } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 function SuccessVerifyDetailsComponent({ navigation }) {
@@ -9,7 +9,6 @@ function SuccessVerifyDetailsComponent({ navigation }) {
   }
   return (
     <View style={{ marginTop: 80, marginLeft: 'auto', marginRight: 'auto', alignItems: 'center' }} >
-      {/* <ScrollView> */}
         <Icon name="check-circle" type="font-awesome" size={300} color='#30d83a' />
         <Text style={styles.textStyle}>
           Bag has been successfully verified and removed from Lost & Found Section
@@ -17,7 +16,6 @@ function SuccessVerifyDetailsComponent({ navigation }) {
         <Pressable style={styles.btnStyle} onPress={GoHome}>
           <Text style={styles.btnTextStyle}>Go back to Home Page</Text>
         </Pressable>
-      {/* </ScrollView> */}
     </View>
   )
 
