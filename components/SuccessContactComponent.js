@@ -5,13 +5,13 @@ import Icon  from 'react-native-vector-icons/FontAwesome';
 function SuccessLostFoundComponent({navigation}) {
 
   function GoHome(){
-    navigation.navigate("ScanAndRetrieve")
+    navigation.navigate("Home")
   }
     return (
         <View style={{ marginTop: 100 , marginLeft: 'auto', marginRight: 'auto', alignItems: 'center'}} >
           <Icon name="check-circle" type="font-awesome" size={300} color='#30d83a' />
           <Text style = {styles.textStyle}>
-            Bag has been successfully added to Lost & Found Section
+            Your Query has been submitted. Our team will reach out to you soon
           </Text>
           <Pressable style={ styles.btnStyle } onPress={GoHome}>
             <Text style={ styles.btnTextStyle }>Go back to Home Page</Text>

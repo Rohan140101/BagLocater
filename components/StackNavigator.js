@@ -13,6 +13,8 @@ import BagDetailsComponent from "./BagDetailsComponent";
 import RetrieveBagComponent from "./RetrieveBagComponent";
 import VerifyDetailsComponent from "./VerifyDetailsComponent";
 import SuccessVerifyDetailsComponent from "./SuccessVerifyDetailsComponent";
+import ContactComponent from "./ContactComponent";
+import SuccessContactComponent from "./SuccessContactComponent";
 
 const Stack = createStackNavigator();
 
@@ -32,6 +34,8 @@ const StackNavigator = () => {
             <Stack.Screen name="RetrieveBag" component={RetrieveBagComponent} />
             <Stack.Screen name="VerifyDetails" component={VerifyDetailsComponent} />
             <Stack.Screen name="SuccessVerifyDetails" component={SuccessVerifyDetailsComponent} />
+            <Stack.Screen name="Contact" component={ContactComponent} />
+            <Stack.Screen name="SuccessContact" component={SuccessContactComponent} />
         </Stack.Navigator>
     )
 }

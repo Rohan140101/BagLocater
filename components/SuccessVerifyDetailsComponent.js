@@ -5,7 +5,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 function SuccessVerifyDetailsComponent({ navigation }) {
 
   function GoHome() {
-    navigation.navigate("Home")
+    navigation.navigate("ScanAndRetrieve")
   }
   return (
     <View style={{ marginTop: 80, marginLeft: 'auto', marginRight: 'auto', alignItems: 'center' }} >
