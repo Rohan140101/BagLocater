@@ -15,7 +15,7 @@ function LoginComponent({navigation}) {
         fetch(domainName + '/authenticate', {
             method: 'POST',
             headers: {
-                Accept: 'application/json',
+                "Accept": 'application/json',
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
@@ -27,7 +27,11 @@ function LoginComponent({navigation}) {
             .then(res => {
                 if (res.success == 'true') {
                     Alert.alert('Congratulations you are signed in');
-                    navigation.navigate('ScanAndRetrieve');
+                    if (!res.isAdmin) {
+                        navigation.navigate('ScanAndRetrieve');
+                    } else {
+                        navigation.navigate("AdminPanel");
+                    }
                 } else {
                     Alert.alert("Invalid Username or Password");
                 }
