@@ -33,7 +33,7 @@ function SearchedBagsComponent({route, navigation}) {
         </ScrollView>
 
         <Button
-         title="Can't find your bag? Click here" style={styles.buttonStyle} 
+         title="Can't find your bag? Click here" style={styles.buttonStyle} onPress={() => navigation.navigate("Contact")}
          />
     </View>
   )

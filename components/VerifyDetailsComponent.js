@@ -56,7 +56,7 @@ function VerifyDetailsComponent({ route, navigation }) {
   }
 
   function Cancel() {
-    navigation.navigate('Home')
+    navigation.navigate('ScanAndRetrieve')
   }
 
   tableData = [
