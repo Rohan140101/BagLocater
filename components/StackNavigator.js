@@ -13,6 +13,9 @@ import BagDetailsComponent from "./BagDetailsComponent";
 import RetrieveBagComponent from "./RetrieveBagComponent";
 import VerifyDetailsComponent from "./VerifyDetailsComponent";
 import SuccessVerifyDetailsComponent from "./SuccessVerifyDetailsComponent";
+import AdminPanel from "./AdminPanel";
+import AddUser from "./AddUser";
+import ViewUsers from "./ViewUsers";
 
 const Stack = createStackNavigator();
 
@@ -32,6 +35,9 @@ const StackNavigator = () => {
             <Stack.Screen name="RetrieveBag" component={RetrieveBagComponent} />
             <Stack.Screen name="VerifyDetails" component={VerifyDetailsComponent} />
             <Stack.Screen name="SuccessVerifyDetails" component={SuccessVerifyDetailsComponent} />
+            <Stack.Screen name="AdminPanel" component={AdminPanel}/>
+            <Stack.Screen name="AddUser" component={AddUser} />
+            <Stack.Screen name="ViewUsers" component={ViewUsers} />
         </Stack.Navigator>
     )
 }

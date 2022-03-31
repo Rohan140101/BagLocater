@@ -17,7 +17,7 @@ function SearchedBagsComponent({route, navigation}) {
   return (
     <View style={styles.container}>
         <Text style={styles.headerText}>
-            All Bags Lost on 05-02-2022 of flight FN67890
+            All Bags Lost on {bags[0].arrivalDate} of flight {bags[0].flightNumber}
         </Text>
         <ScrollView>
           <View style={styles.bagLayout}>
