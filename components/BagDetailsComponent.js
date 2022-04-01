@@ -1,5 +1,5 @@
 import React from 'react';
-import { View,StyleSheet,Text,Image} from "react-native";
+import { View,StyleSheet,Text,Image, Button, ScrollView} from "react-native";
 import { Table,Row,Rows } from 'react-native-table-component';
 
 
@@ -12,7 +12,8 @@ function BagDetailsComponent({route, navigation}) {
   };
   return (
     <View style= {styles.mainView}>
-        <Image source = {{uri: url}} style = {styles.bagImage} />
+      <ScrollView>
+      <Image source = {{uri: url}} style = {styles.bagImage} />
         <View>
             <Table borderStyle = {{borderWidth:2}} style = {styles.tableStyle} >
                <Row data={TABLE_CONTENT.tableHead} textStyle={styles.headText} style = {styles.headerBack} />
@@ -21,7 +22,10 @@ function BagDetailsComponent({route, navigation}) {
             <Text style={styles.bottomText}>Your bag is located at {airport} International Airport. You can collect it from there.</Text>
             <Text style={styles.bottomText}>Keep Note of Your Baggage Number</Text>
             <Text style={styles.bottomText}>Thank You!</Text>
+            <Button title='Home' color="#009387" onPress={() => navigation.navigate("Home")}/>
         </View>
+      </ScrollView>
+        
     </View>
   )
 }

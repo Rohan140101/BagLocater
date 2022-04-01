@@ -17,7 +17,7 @@ function SearchedBagsComponent({route, navigation}) {
   return (
     <View style={styles.container}>
         <Text style={styles.headerText}>
-            All Bags Lost on 05-02-2022 of flight FN67890
+            All Bags Lost on {bags[0].arrivalDate} of flight {bags[0].flightNumber}
         </Text>
         <ScrollView>
           <View style={styles.bagLayout}>
@@ -33,7 +33,7 @@ function SearchedBagsComponent({route, navigation}) {
         </ScrollView>
 
         <Button
-         title="Can't find your bag? Click here" style={styles.buttonStyle} 
+         title="Can't find your bag? Click here" style={styles.buttonStyle} onPress={() => navigation.navigate("Contact")}
          />
     </View>
   )

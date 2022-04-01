@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Alert } from 'react-native';
 import { Camera } from 'expo-camera';
-import { Ionicons } from '@expo/vector-icons';
 import Icon  from 'react-native-vector-icons/FontAwesome';
 import { useSelector, useDispatch } from "react-redux";
-import {domainName} from './domain.js';
 import { addUrl } from './redux/ActionCreators.js';
+import {manipulateAsync, SaveFormat} from "expo-image-manipulator";
 
 function AddLostFoundComponent({navigation}) {
   const [hasPermission, setHasPermission] = useState(null);
@@ -77,12 +76,15 @@ function AddLostFoundComponent({navigation}) {
     var snap = async () => {
       if (this.camera) {
         let photo = await this.camera.takePictureAsync();
+        // console.log(photo);
+        const manipulateImage = await manipulateAsync(photo.uri, [{resize: {width: 500, height: 550}}], {format: SaveFormat.JPEG});
+        // console.log(manipulateImage);
         const source = {
-          uri: photo.uri,
-          type: 'image/jpg',
-          name: details.baggageNumber
-        }
-        cloudinaryCloud(source);
+            uri: manipulateImage.uri,
+            type: 'image/jpg',
+            name: details.baggageNumber
+          }
+          cloudinaryCloud(source);
       }
     };
 

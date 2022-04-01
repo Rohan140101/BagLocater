@@ -1,7 +1,7 @@
-import React, { Component } from "react";
+import React from "react";
 import { View, Text, StyleSheet, Pressable, Linking } from "react-native";
-import { Table, Row, Rows, Col, Cols } from 'react-native-table-component';
-import { useSelector, useDispatch } from "react-redux";
+import { Table, Rows } from 'react-native-table-component';
+import { useSelector } from "react-redux";
 
 function AfterScanComponent({navigation}) {
     var details = {

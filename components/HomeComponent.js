@@ -1,7 +1,6 @@
-import React, { Component } from "react";
+import React from "react";
 import { View, Text, StyleSheet, ImageBackground } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
-import { SafeAreaView } from "react-native-safe-area-context";
 
 
 function HomeComponent({ navigation }) {
@@ -32,7 +31,6 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         textAlign: "center",
         color: "yellow",
-        // backgroundColor: "#000000a0",
         color: "yellow"
     },
     MainView: {
@@ -44,7 +42,6 @@ const styles = StyleSheet.create({
     },
     HomeView1: {
         marginTop: 100,
-        // marginLeft: 100,
         fontSize: 10,
         fontWeight: "bold",
         alignItems: "center",

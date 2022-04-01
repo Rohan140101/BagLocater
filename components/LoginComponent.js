@@ -1,10 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { StyleSheet, TextInput } from 'react-native';
-import { View, Text, Alert, ActivityIndicator } from "react-native";
+import { View, Text, Alert } from "react-native";
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
 import { Button } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
 import {domainName} from './domain.js';
 
 function LoginComponent({navigation}) {
@@ -16,7 +15,7 @@ function LoginComponent({navigation}) {
         fetch(domainName + '/authenticate', {
             method: 'POST',
             headers: {
-                Accept: 'application/json',
+                "Accept": 'application/json',
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
@@ -28,7 +27,11 @@ function LoginComponent({navigation}) {
             .then(res => {
                 if (res.success == 'true') {
                     Alert.alert('Congratulations you are signed in');
-                    navigation.navigate('ScanAndRetrieve');
+                    if (!res.isAdmin) {
+                        navigation.navigate('ScanAndRetrieve');
+                    } else {
+                        navigation.navigate("AdminPanel");
+                    }
                 } else {
                     Alert.alert("Invalid Username or Password");
                 }
