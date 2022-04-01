@@ -34,12 +34,12 @@ export default AboutComponent;
 
 const styles = StyleSheet.create({
     container: {
-        flex:1,
-        backgroundColor: '#009387',
+        flex:1
         
     },
     header: {
         flex: 0.5,
+        backgroundColor: '#009387',
         justifyContent: 'flex-end',
         paddingHorizontal: 20,
         paddingBottom: 20
