@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import { Alert, TextInput } from 'react-native';
+import { Alert, TextInput, ActivityIndicator } from 'react-native';
 import { View, Text, StyleSheet } from "react-native";
 import { Button } from 'react-native';
 import { domainName } from "./domain";
@@ -7,7 +7,10 @@ import { domainName } from "./domain";
 function AddUser({navigation}) {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const [loading, isLoading] = React.useState(false);
+
     function handleUser() {
+        isLoading(true);
         fetch(domainName + '/addUser', {
             method: 'POST',
             headers: {
@@ -21,6 +24,7 @@ function AddUser({navigation}) {
         })
         .then(res => res.json())
         .then(res => {
+            isLoading(false);
             if (res.addUser == "success") {
                 Alert.alert("User Added Successfully!")
                 navigation.navigate("AdminPanel")
@@ -33,6 +37,7 @@ function AddUser({navigation}) {
     }
     return (
         <View style = {styles.container}>
+            {loading ?<View style={styles.loader}><ActivityIndicator size="large" color="#0000ff" /></View> : <Text></Text>}
             <View style = {styles.header}>
                <Text style = {styles.contactHeader}>Add User</Text>
              </View>
@@ -64,6 +69,16 @@ const styles = StyleSheet.create({
         paddingHorizontal: 20,
         paddingBottom: 20
 
+    },
+    loader: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        alignItems: 'center',
+        justifyContent: 'center',
+        zIndex: 1
     },
     contactHeader:{
         color: 'white',

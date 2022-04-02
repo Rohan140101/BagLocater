@@ -1,5 +1,5 @@
-import React from 'react';
-import { StyleSheet, TextInput } from 'react-native';
+import React, {useRef, useEffect} from 'react';
+import { StyleSheet, TextInput, ActivityIndicator, SafeAreaView } from 'react-native';
 import { View, Text, Alert } from "react-native";
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
@@ -10,8 +10,10 @@ function LoginComponent({navigation}) {
 
     const [username, setUsername] = React.useState('');
     const [password, setPassword] = React.useState('');
+    const [loading, isLoading] = React.useState(false);
 
     function handleLogin() {
+        isLoading(true);
         fetch(domainName + '/authenticate', {
             method: 'POST',
             headers: {
@@ -25,6 +27,7 @@ function LoginComponent({navigation}) {
         })
             .then((res) => res.json())
             .then(res => {
+                isLoading(false);
                 if (res.success == 'true') {
                     Alert.alert('Congratulations you are signed in');
                     if (!res.isAdmin) {
@@ -34,18 +37,22 @@ function LoginComponent({navigation}) {
                     }
                 } else {
                     Alert.alert("Invalid Username or Password");
+                    navigation.navigate("Login");
                 }
             })
             .catch(error => {
-                console.log(error);
+                isLoading(false);
+                Alert.alert("Invalid Username or Password");
+                navigation.navigate("Login");
             })
     }
 
     return (
-        <View style={styles.container}>
+        <SafeAreaView style={styles.container}>            
             <View style={styles.header}>
                 <Text style={styles.signInText}>Welcome to Bag Locater!</Text>
             </View>
+            {loading ?<View style={styles.loader}><ActivityIndicator size="large" color="#0000ff" /></View> : <Text></Text>}
             <View style={styles.footer}>
                 <Text style={styles.labelText}>Username:</Text>
                 <View style={styles.action}>
@@ -57,10 +64,9 @@ function LoginComponent({navigation}) {
                     <Feather name="lock" color="#05375a" size={20} />
                     <TextInput style={styles.TextInput} secureTextEntry={true} placeholder="Enter your password" onChangeText={(passText) => setPassword(passText)}></TextInput>
                 </View>
-
                 <Button title="Sign In" color="#009387" onPress={handleLogin} />
             </View>
-        </View>
+        </SafeAreaView>
     )
 }
 
@@ -78,6 +84,16 @@ const styles = StyleSheet.create({
         paddingHorizontal: 20,
         paddingBottom: 50
 
+    },
+    loader: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        alignItems: 'center',
+        justifyContent: 'center',
+        zIndex: 1
     },
     footer: {
         flex: 3,

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Alert } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Alert, ActivityIndicator } from 'react-native';
 import { Camera } from 'expo-camera';
 import Icon  from 'react-native-vector-icons/FontAwesome';
 import { useSelector, useDispatch } from "react-redux";
@@ -7,6 +7,7 @@ import { addUrl } from './redux/ActionCreators.js';
 import {manipulateAsync, SaveFormat} from "expo-image-manipulator";
 
 function AddLostFoundComponent({navigation}) {
+  const [loading, isLoading] = React.useState(false);
   const [hasPermission, setHasPermission] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.back);
 
@@ -54,6 +55,7 @@ function AddLostFoundComponent({navigation}) {
     }
 
     const cloudinaryCloud = (photo) => {
+        isLoading(true);
         const data = new FormData();
         data.append('file', photo);
         data.append('upload_preset', 'baglocater');
@@ -64,6 +66,7 @@ function AddLostFoundComponent({navigation}) {
         })
         .then(res => res.json())
         .then(data => {
+            isLoading(false);
             var url = data.secure_url
             dispatch(addUrl({url}));
             navigation.navigate('SelectAirport');
@@ -92,6 +95,7 @@ function AddLostFoundComponent({navigation}) {
     <View style={styles.container}>
       <Camera style={styles.camera} type={type} ref={ref => {this.camera = ref;}}>
         <View style={styles.buttonContainer}>
+        {loading ?<View style={styles.loader}><ActivityIndicator size="large" color="#0000ff" /></View> : <Text></Text>}
           <View
             style={styles.button2}
             >
@@ -127,6 +131,16 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-end',
     alignItems: 'center',
   },
+  loader: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    alignItems: 'center',
+    justifyContent: 'center',
+    zIndex: 1
+},
   text: {
     fontSize: 18,
     color: 'white',
