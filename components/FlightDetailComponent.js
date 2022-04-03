@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, Button } from "react-native";
+import { View, Text, StyleSheet, Button, ActivityIndicator } from "react-native";
 import { Input } from "react-native-elements";
 import {domainName} from "./domain";
 
@@ -7,8 +7,10 @@ import {domainName} from "./domain";
 function FlightDetailComponent({navigation}) {
     const [flightNumber, setFlightNumber] = useState("");
     const [dateOfLanding, setDateOfLanding] = useState("");
+    const [loading, isLoading] = React.useState(false);
 
     function handlePress() {
+        isLoading(true);
         fetch(domainName + "/searchBags", {
             method: 'POST',
             headers: {
@@ -23,6 +25,7 @@ function FlightDetailComponent({navigation}) {
         })
         .then((res) => res.json())
         .then(res => {
+            isLoading(false);
             navigation.navigate("SearchedBags", {
                 bags: res.data
             })
@@ -32,6 +35,7 @@ function FlightDetailComponent({navigation}) {
 
     return (
         <View>
+            {loading ?<View style={styles.loader}><ActivityIndicator size="large" color="#0000ff" /></View> : <Text></Text>}
             <View style={styles.View1}>
                 <Input placeholder="Enter Flight Number" onChangeText={(fN) => setFlightNumber(fN)} />
             </View>
@@ -53,6 +57,16 @@ const styles = StyleSheet.create({
     },
     View2: {
         marginTop: 50
+    },
+    loader: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        alignItems: 'center',
+        justifyContent: 'center',
+        zIndex: 1
     },
     View3: {
         marginTop: 30,

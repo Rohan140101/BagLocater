@@ -18,6 +18,7 @@ import SuccessContactComponent from "./SuccessContactComponent";
 import AdminPanel from "./AdminPanel";
 import AddUser from "./AddUser";
 import ViewUsers from "./ViewUsers";
+import LoginComponent from "./LoginComponent";
 
 const Stack = createStackNavigator();
 
@@ -39,7 +40,7 @@ const StackNavigator = () => {
             <Stack.Screen name="SuccessVerifyDetails" component={SuccessVerifyDetailsComponent} />
             <Stack.Screen name="Contact" component={ContactComponent} />
             <Stack.Screen name="SuccessContact" component={SuccessContactComponent} />
-
+            <Stack.Screen name="Login" component={LoginComponent} />
             <Stack.Screen name="AdminPanel" component={AdminPanel}/>
             <Stack.Screen name="AddUser" component={AddUser} />
             <Stack.Screen name="ViewUsers" component={ViewUsers} />

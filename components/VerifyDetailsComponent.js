@@ -1,11 +1,12 @@
 import React from "react";
-import { View, Text, StyleSheet, Pressable, Image, ScrollView } from "react-native";
+import { View, Text, StyleSheet, Pressable, Image, ScrollView, ActivityIndicator } from "react-native";
 import { Table, Rows } from 'react-native-table-component';
 import { useSelector } from "react-redux";
 import {domainName} from './domain.js';
 
 function VerifyDetailsComponent({ route, navigation }) {
-  
+  const [loading, isLoading] = React.useState(false);
+
   var details = {
     name: "",
     email: "",
@@ -32,6 +33,7 @@ function VerifyDetailsComponent({ route, navigation }) {
   })
 
   function Verified() {
+    isLoading(true);
     fetch(domainName + '/verifydetails', {
       method: 'POST',
       headers: {
@@ -44,6 +46,7 @@ function VerifyDetailsComponent({ route, navigation }) {
   })
       .then((res) => res.json())
       .then(res => {
+        isLoading(false);
           if (res.success == 'true') {
               navigation.navigate('SuccessVerifyDetails');
           } else {
@@ -72,6 +75,7 @@ function VerifyDetailsComponent({ route, navigation }) {
   return (
     <View style={styles.container}>
       <ScrollView>
+      {loading ?<View style={styles.loader}><ActivityIndicator size="large" color="#0000ff" /></View> : <Text></Text>}
         <Table borderStyle={{ borderWidth: 2, borderColor: '#c8e1ff' }}>
           <Rows data={tableData} textStyle={styles.text} />
         </Table>
@@ -79,9 +83,6 @@ function VerifyDetailsComponent({ route, navigation }) {
         <View style={styles.bagLayout}>
           <Image style={styles.bagImage} source={{ uri: route.params.data[0].url }} />
         </View>
-
-
-
         <Pressable style={[styles.btnStyle, styles.VerifiedBtn]} onPress={Verified} >
           <Text style={styles.btnText}>Verify Details</Text>
         </Pressable>
@@ -111,6 +112,16 @@ const styles = StyleSheet.create({
   CancelBtn: {
     backgroundColor: '#ff1919',
   },
+  loader: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    alignItems: 'center',
+    justifyContent: 'center',
+    zIndex: 1
+},
   btnStyle: {
     marginTop: 25,
     alignItems: 'center',
